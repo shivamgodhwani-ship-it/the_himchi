@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Himchi</title>
+
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">Himchi<span>.</span></div>
+
+```
+<div class="nav-menu">
+  <a href="#featured">Featured</a>
+  <a href="#about">Story</a>
+  <a href="#menu">Menu</a>
+  <a href="#contact">Visit</a>
+</div>
+
+<button class="nav-btn" onclick="openModal()">Reserve</button>
+```
+
+  </div>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+  <img src="logo.png" class="hero-logo">
+  <button class="btn" onclick="openModal()">Reserve a Table</button>
+</section>
+
+<!-- FEATURED -->
+
+<section id="featured" class="section">
+  <h2>Our Recommendations</h2>
+
+  <div class="carousel">
+    <div class="carousel-track" id="carousel-track">
+
+```
+  <div class="food-card"><img src="shake.jpg"><h3>Nutella Shake</h3></div>
+  <div class="food-card"><img src="momos.jpg"><h3>Tandoori Momos</h3></div>
+  <div class="food-card"><img src="noodles.jpg"><h3>Chilli Garlic Noodles</h3></div>
+  <div class="food-card"><img src="drink.jpg"><h3>Iced Lemon Tea</h3></div>
+
+  <div class="food-card"><img src="shake.jpg"><h3>Nutella Shake</h3></div>
+  <div class="food-card"><img src="momos.jpg"><h3>Tandoori Momos</h3></div>
+
+</div>
+```
+
+  </div>
+</section>
+
+<!-- STORY -->
+
+<section id="about" class="section light">
+
+  <h2>Our Story</h2>
+
+  <p class="story-text">
+    At Himchi, we believe food is more than just taste — it’s an experience.
+    From bold Indo-Chinese flavours to a cozy aesthetic space, every visit is designed
+    to feel warm, vibrant, and unforgettable.
+  </p>
+
+  <p class="story-text">
+    Whether it's a quick bite or a long hangout, Himchi is where comfort meets flavour.
+  </p>
+
+  <div class="story-cards">
+    <div class="story-card">
+      <h3>Ambience</h3>
+      <p>Warm lighting & cozy interiors designed for comfort.</p>
+    </div>
+
+```
+<div class="story-card">
+  <h3>Flavours</h3>
+  <p>Bold Indo-Chinese fusion with a unique twist.</p>
+</div>
+
+<div class="story-card">
+  <h3>Moments</h3>
+  <p>Perfect for dates, hangouts & chill evenings.</p>
+</div>
+```
+
+  </div>
+
+</section>
+
+<!-- EXPERIENCE -->
+
+<section class="experience section">
+
+  <h2>Experience The Himchi</h2>
+
+  <p class="exp-text">
+    A place where food, vibe and moments come together.
+  </p>
+
+  <div class="video-box">
+    <video autoplay muted loop playsinline>
+      <source src="himchi.mp4">
+    </video>
+  </div>
+
+</section>
+
+<!-- MENU -->
+
+<section id="menu" class="section">
+  <h2>What We Serve</h2>
+
+  <div class="grid">
+    <div class="card"><img src="momos.jpg"><p>Momos</p></div>
+    <div class="card"><img src="noodles.jpg"><p>Noodles</p></div>
+    <div class="card"><img src="shake.jpg"><p>Shakes</p></div>
+    <div class="card"><img src="drink.jpg"><p>Beverages</p></div>
+  </div>
+</section>
+
+<!-- ORDER -->
+
+<section class="section light">
+  <h2>Order Online</h2>
+
+  <div class="platforms">
+    <a href="https://zomato.onelink.me/xqzv/js3a85p9"><img src="zomato.png"></a>
+    <a href="https://www.swiggy.com/menu/1166577"><img src="swiggy.png"></a>
+  </div>
+</section>
+
+<!-- END SECTION -->
+
+<section class="end-section">
+
+  <div class="end-block">
+    <h3>Order Online</h3>
+    <p>Enjoy Himchi from your home.</p>
+  </div>
+
+  <div class="end-block">
+    <h3>Bulk Orders</h3>
+    <p>Perfect for events and parties.</p>
+  </div>
+
+  <div class="end-block">
+    <h3>We’d love to help you</h3>
+    <p>+91 70423 77168</p>
+  </div>
+
+</section>
+
+<!-- MAP -->
+
+<section class="section">
+  <h2>Find Us</h2>
+
+  <div class="map">
+    <iframe src="https://maps.google.com/maps?q=Panchsheel%20Garden%20Delhi&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+  </div>
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact" class="section">
+  <h2>Visit Café</h2>
+
+  <p>📍 Panchsheel Garden, Shahdara, Delhi</p>
+
+  <div class="contact-btns">
+    <a href="tel:+917042377168">Call</a>
+    <a href="https://wa.me/917042377168">WhatsApp</a>
+  </div>
+</section>
+
+<!-- MOMO -->
+
+<div class="momo" id="momo">
+  <div class="eyes"></div>
+  <div class="mouth"></div>
+</div>
+
+<!-- MODAL -->
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span onclick="closeModal()">×</span>
+    <h2>Reserve Table</h2>
+    <input id="name" placeholder="Name">
+    <input id="date" type="date">
+    <input id="time" type="time">
+    <button onclick="submitForm()">Confirm</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
