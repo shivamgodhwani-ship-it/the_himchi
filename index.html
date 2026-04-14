@@ -1,212 +1,275 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Himchi</title>
-
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Himchi – Satisfy Your Tongue</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<!-- NAVBAR -->
-
-<nav class="navbar">
-  <div class="nav-container">
-    <div class="logo">Himchi<span>.</span></div>
-
-```
-<div class="nav-menu">
-  <a href="#featured">Featured</a>
-  <a href="#about">Story</a>
-  <a href="#menu">Menu</a>
-  <a href="#contact">Visit</a>
-</div>
-
-<button class="nav-btn" onclick="openModal()">Reserve</button>
-```
-
+  <!-- LOADER -->
+  <div class="loader" id="loader">
+    <svg class="loader-momo" viewBox="0 0 90 110" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="45" cy="108" rx="22" ry="5" fill="rgba(0,0,0,0.18)"/>
+      <ellipse cx="11" cy="72" rx="9" ry="14" fill="#ede5d4" transform="rotate(22,11,72)"/>
+      <g class="wave-arm"><ellipse cx="79" cy="63" rx="9" ry="14" fill="#ede5d4" transform="rotate(-38,79,63)"/><ellipse cx="79" cy="50" rx="7" ry="7" fill="#ede5d4"/></g>
+      <ellipse cx="45" cy="74" rx="33" ry="30" fill="#f5f0e8"/>
+      <ellipse cx="45" cy="46" rx="20" ry="10" fill="#eae2d0"/>
+      <path d="M28,50 Q37,43 45,42 Q53,43 62,50" fill="none" stroke="#d4cbb8" stroke-width="2.5" stroke-linecap="round"/>
+      <ellipse cx="27" cy="73" rx="10" ry="8" fill="#f4a090" opacity="0.38"/>
+      <ellipse cx="63" cy="73" rx="10" ry="8" fill="#f4a090" opacity="0.38"/>
+      <circle cx="36" cy="66" r="8.5" fill="#2a1f14"/>
+      <circle cx="54" cy="66" r="8.5" fill="#2a1f14"/>
+      <circle cx="38.5" cy="63" r="3" fill="white"/>
+      <circle cx="56.5" cy="63" r="3" fill="white"/>
+      <path d="M30,59 Q36,56 42,59" fill="none" stroke="#4a3828" stroke-width="2" stroke-linecap="round"/>
+      <path d="M48,59 Q54,56 60,59" fill="none" stroke="#4a3828" stroke-width="2" stroke-linecap="round"/>
+      <path d="M33,80 Q45,91 57,80" fill="none" stroke="#2a1f14" stroke-width="2.8" stroke-linecap="round"/>
+      <rect x="42" y="81" width="6" height="5" rx="1.5" fill="white"/>
+      <ellipse cx="35" cy="101" rx="10" ry="12" fill="#ede5d4"/>
+      <ellipse cx="55" cy="101" rx="10" ry="12" fill="#ede5d4"/>
+    </svg>
+    <p class="loader-text">Himchi</p>
   </div>
-</nav>
 
-<!-- HERO -->
-
-<section class="hero">
-  <img src="logo.png" class="hero-logo">
-  <button class="btn" onclick="openModal()">Reserve a Table</button>
-</section>
-
-<!-- FEATURED -->
-
-<section id="featured" class="section">
-  <h2>Our Recommendations</h2>
-
-  <div class="carousel">
-    <div class="carousel-track" id="carousel-track">
-
-```
-  <div class="food-card"><img src="shake.jpg"><h3>Nutella Shake</h3></div>
-  <div class="food-card"><img src="momos.jpg"><h3>Tandoori Momos</h3></div>
-  <div class="food-card"><img src="noodles.jpg"><h3>Chilli Garlic Noodles</h3></div>
-  <div class="food-card"><img src="drink.jpg"><h3>Iced Lemon Tea</h3></div>
-
-  <div class="food-card"><img src="shake.jpg"><h3>Nutella Shake</h3></div>
-  <div class="food-card"><img src="momos.jpg"><h3>Tandoori Momos</h3></div>
-
-</div>
-```
-
-  </div>
-</section>
-
-<!-- STORY -->
-
-<section id="about" class="section light">
-
-  <h2>Our Story</h2>
-
-  <p class="story-text">
-    At Himchi, we believe food is more than just taste — it’s an experience.
-    From bold Indo-Chinese flavours to a cozy aesthetic space, every visit is designed
-    to feel warm, vibrant, and unforgettable.
-  </p>
-
-  <p class="story-text">
-    Whether it's a quick bite or a long hangout, Himchi is where comfort meets flavour.
-  </p>
-
-  <div class="story-cards">
-    <div class="story-card">
-      <h3>Ambience</h3>
-      <p>Warm lighting & cozy interiors designed for comfort.</p>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">Himchi</div>
+      <div class="nav-menu" id="navMenu">
+        <a href="#featured" class="nav-link">Featured</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#menu" class="nav-link">Menu</a>
+        <a href="#testimonials" class="nav-link">Reviews</a>
+        <a href="#gallery" class="nav-link">Gallery</a>
+        <a href="#contact" class="nav-link">Visit</a>
+      </div>
+      <div class="nav-actions">
+        <button class="reserve-btn" onclick="openModal()">Reserve</button>
+        <button id="darkToggle" class="dark-btn" onclick="toggleDark()">🌙</button>
+        <button class="burger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+      </div>
     </div>
+  </nav>
 
-```
-<div class="story-card">
-  <h3>Flavours</h3>
-  <p>Bold Indo-Chinese fusion with a unique twist.</p>
-</div>
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="steam-wrap">
+      <div class="steam s1"></div><div class="steam s2"></div><div class="steam s3"></div>
+    </div>
+    <div class="hero-content">
+      <img src="logo.png" class="hero-logo" alt="Himchi">
+      <h1 class="hero-title">Experience<br><em>The Himchi</em></h1>
+      <p class="hero-sub">Bold flavours. Cozy vibes. Premium street fusion.</p>
+      <div class="hero-btns">
+        <button class="main-btn" onclick="openModal()">Reserve a Table</button>
+        <a href="#menu" class="ghost-btn">Explore Menu</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+  </section>
 
-<div class="story-card">
-  <h3>Moments</h3>
-  <p>Perfect for dates, hangouts & chill evenings.</p>
-</div>
-```
-
-  </div>
-
-</section>
-
-<!-- EXPERIENCE -->
-
-<section class="experience section">
-
-  <h2>Experience The Himchi</h2>
-
-  <p class="exp-text">
-    A place where food, vibe and moments come together.
-  </p>
-
-  <div class="video-box">
-    <video autoplay muted loop playsinline>
-      <source src="himchi.mp4">
+  <!-- VIDEO SECTION -->
+  <section class="video-section" id="experience">
+    <video class="bg-video" autoplay muted loop playsinline>
+      <source src="hero-video.mp4" type="video/mp4">
     </video>
+    <div class="video-fallback"></div>
+    <div class="video-overlay">
+      <span class="section-tag light">Our Story</span>
+      <h2>More Than Just Food</h2>
+      <p>Every dish at Himchi is an emotion — crafted with fire, spice, and soul. Indo-Chinese street food, elevated.</p>
+      <button class="ghost-btn white" onclick="openModal()">Reserve a Spot</button>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section class="section" id="featured">
+    <span class="section-tag">Our Recommendations</span>
+    <h2>What To Order</h2>
+    <div class="featured-tabs" id="featuredTabs">
+      <button class="tab-btn active" data-cat="momos"     onclick="onTabClick('momos',this)">Momos</button>
+      <button class="tab-btn"        data-cat="noodles"   onclick="onTabClick('noodles',this)">Noodles</button>
+      <button class="tab-btn"        data-cat="shakes"    onclick="onTabClick('shakes',this)">Shakes</button>
+      <button class="tab-btn"        data-cat="beverages" onclick="onTabClick('beverages',this)">Beverages</button>
+    </div>
+    <div class="featured-items" id="featuredItems"></div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item"><span class="stat-num" data-target="5000" data-suffix="+">0+</span><span class="stat-label">Happy Customers</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat-item"><span class="stat-num" data-target="40" data-suffix="+">0+</span><span class="stat-label">Menu Items</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat-item"><span class="stat-num" data-target="4.8" data-suffix="★" data-decimal="true">0★</span><span class="stat-label">Avg Rating</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat-item"><span class="stat-num" data-target="3" data-suffix=" yrs">0 yrs</span><span class="stat-label">Of Good Vibes</span></div>
   </div>
 
-</section>
+  <!-- ABOUT -->
+  <section class="section dark-section" id="about">
+    <span class="section-tag">Who We Are</span>
+    <h2>About Himchi</h2>
+    <p class="section-sub">Himchi blends Indo-Chinese street food with modern café culture — crafted for comfort, conversations, and unforgettable flavour.</p>
+    <div class="about-grid">
+      <div class="about-card reveal"><div class="card-icon">🏮</div><h3>Ambience</h3><p>Warm interiors built for chill evenings and great conversations.</p></div>
+      <div class="about-card reveal"><div class="card-icon">🍜</div><h3>Flavours</h3><p>Bold fusion dishes crafted to stand out from the ordinary.</p></div>
+      <div class="about-card reveal"><div class="card-icon">✨</div><h3>Experience</h3><p>Not just food — a vibe you'll always want to come back for.</p></div>
+    </div>
+  </section>
 
-<!-- MENU -->
+  <!-- MENU -->
+  <section class="section" id="menu">
+    <span class="section-tag">Menu Highlights</span>
+    <h2>Our Bestsellers</h2>
+    <div class="menu-grid">
+      <div class="menu-card reveal">
+        <div class="menu-img">🥟</div>
+        <div class="menu-badge bestseller">Bestseller</div>
+        <div class="menu-info"><h3>Tandoori Momos</h3><p>Smoky, spiced, char-grilled to perfection.</p><div class="menu-footer"><span class="menu-price">₹149</span><span class="menu-tag spicy">🌶 Spicy</span></div></div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-img">🍜</div>
+        <div class="menu-badge">Popular</div>
+        <div class="menu-info"><h3>Garlic Noodles</h3><p>Bold garlic toss, wok-fired with street magic.</p><div class="menu-footer"><span class="menu-price">₹129</span><span class="menu-tag veg">🌿 Veg</span></div></div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-img">🍫</div>
+        <div class="menu-badge bestseller">Bestseller</div>
+        <div class="menu-info"><h3>Chocolate Shake</h3><p>Thick, rich, dangerously indulgent.</p><div class="menu-footer"><span class="menu-price">₹119</span><span class="menu-tag sweet">🍫 Sweet</span></div></div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-img">🧋</div>
+        <div class="menu-info"><h3>Iced Tea</h3><p>Refreshing, light — the perfect companion.</p><div class="menu-footer"><span class="menu-price">₹89</span><span class="menu-tag cool">❄️ Cool</span></div></div>
+      </div>
+    </div>
+  </section>
 
-<section id="menu" class="section">
-  <h2>What We Serve</h2>
+  <!-- TESTIMONIALS -->
+  <section class="section dark-section" id="testimonials">
+    <span class="section-tag">What People Say</span>
+    <h2>Reviews</h2>
+    <div class="testi-grid">
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><p>"The tandoori momos are unlike anything I've had. The smoky flavour is absolutely addictive — we ordered two extra plates."</p><div class="testi-author"><div class="testi-avatar">R</div><div><strong>Rahul Mehra</strong><span>via Zomato</span></div></div></div>
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><p>"The vibe here is immaculate. Dark lights, good music, and garlic noodles that hit at midnight — what else do you need?"</p><div class="testi-author"><div class="testi-avatar">P</div><div><strong>Priya Nanda</strong><span>via Swiggy</span></div></div></div>
+      <div class="testi-card reveal"><div class="testi-stars">★★★★☆</div><p>"Came for a birthday dinner, stayed for three hours. Best momo experience in the city — and the chocolate shake is a 10."</p><div class="testi-author"><div class="testi-avatar">A</div><div><strong>Arjun Singh</strong><span>via Google</span></div></div></div>
+    </div>
+  </section>
 
-  <div class="grid">
-    <div class="card"><img src="momos.jpg"><p>Momos</p></div>
-    <div class="card"><img src="noodles.jpg"><p>Noodles</p></div>
-    <div class="card"><img src="shake.jpg"><p>Shakes</p></div>
-    <div class="card"><img src="drink.jpg"><p>Beverages</p></div>
+  <!-- GALLERY - infinite carousel -->
+  <section class="section" id="gallery">
+    <span class="section-tag">Gallery</span>
+    <h2>Moments At Himchi</h2>
+    <div class="gallery-wrapper">
+      <div class="gallery-track">
+        <div class="g-item"><img src="g1.jpg" alt="" onerror="this.parentElement.classList.add('no-img')">📸</div>
+        <div class="g-item"><img src="g2.jpg" alt="" onerror="this.parentElement.classList.add('no-img')">🥟</div>
+        <div class="g-item"><img src="g3.jpg" alt="" onerror="this.parentElement.classList.add('no-img')">🍜</div>
+        <div class="g-item"><img src="g4.jpg" alt="" onerror="this.parentElement.classList.add('no-img')">🍫</div>
+        <!-- duplicate for seamless loop -->
+        <div class="g-item"><img src="g1.jpg" alt="" onerror="this.parentElement.classList.add('no-img')">📸</div>
+        <div class="g-item"><img src="g2.jpg" alt="" onerror="this.parentElement.classList.add('no-img')">🥟</div>
+        <div class="g-item"><img src="g3.jpg" alt="" onerror="this.parentElement.classList.add('no-img')">🍜</div>
+        <div class="g-item"><img src="g4.jpg" alt="" onerror="this.parentElement.classList.add('no-img')">🍫</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section class="section dark-section" id="contact">
+    <span class="section-tag">Find Us</span>
+    <h2>Visit Himchi</h2>
+    <p class="section-sub">Open All Week &nbsp;•&nbsp; 12:30 PM – 11:00 PM</p>
+    <div class="brand-links">
+      <a href="https://wa.me/917042377168" target="_blank" class="brand-btn">
+        <img src="whatsapp.png" alt="WhatsApp"><span>WhatsApp</span>
+      </a>
+      <a href="https://www.instagram.com/himchiofficial?igsh=OTgydzg2OWhxcnFj" target="_blank" class="brand-btn">
+        <img src="instagram.png" alt="Instagram"><span>Instagram</span>
+      </a>
+      <a href="https://www.swiggy.com/menu/1166577" target="_blank" class="brand-btn">
+        <img src="swiggy.png" alt="Swiggy"><span>Order on Swiggy</span>
+      </a>
+      <a href="https://zomato.onelink.me/xqzv/js3a85p9" target="_blank" class="brand-btn">
+        <img src="zomato.png" alt="Zomato"><span>Order on Zomato</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand"><span class="footer-logo">Himchi</span><p>Satisfy Your Tongue</p></div>
+      <div class="footer-links">
+        <a href="#featured">Featured</a><a href="#about">About</a><a href="#menu">Menu</a><a href="#contact">Visit</a>
+      </div>
+      <p class="footer-copy">© 2025 Himchi. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- MOMO MASCOT -->
+  <div class="momo-mascot" id="mascot" onclick="openModal()" title="Tap to reserve!">
+    <div class="momo-flag-wrap"><div class="flag-pole"></div><div class="momo-flag-tag">Himchi 🏮</div></div>
+    <svg class="momo-svg" viewBox="0 0 90 110" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="45" cy="108" rx="22" ry="5" fill="rgba(0,0,0,0.2)"/>
+      <ellipse cx="11" cy="72" rx="9" ry="14" fill="#ede5d4" transform="rotate(22,11,72)"/>
+      <g class="wave-arm"><ellipse cx="79" cy="63" rx="9" ry="14" fill="#ede5d4" transform="rotate(-38,79,63)"/><ellipse cx="79" cy="50" rx="7" ry="7" fill="#ede5d4"/></g>
+      <ellipse cx="45" cy="74" rx="33" ry="30" fill="#f5f0e8"/>
+      <ellipse cx="45" cy="74" rx="33" ry="30" fill="url(#bG)"/>
+      <ellipse cx="45" cy="46" rx="20" ry="10" fill="#eae2d0"/>
+      <path d="M28,50 Q37,43 45,42 Q53,43 62,50" fill="none" stroke="#d4cbb8" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M34,50 Q39,46 45,45 Q51,46 56,50" fill="none" stroke="#c8bfaa" stroke-width="1.5" stroke-linecap="round"/>
+      <ellipse cx="27" cy="73" rx="10" ry="8" fill="#f4a090" opacity="0.38"/>
+      <ellipse cx="63" cy="73" rx="10" ry="8" fill="#f4a090" opacity="0.38"/>
+      <circle cx="36" cy="66" r="8.5" fill="#2a1f14"/>
+      <circle cx="54" cy="66" r="8.5" fill="#2a1f14"/>
+      <circle cx="38.5" cy="63" r="3" fill="white"/>
+      <circle cx="56.5" cy="63" r="3" fill="white"/>
+      <circle cx="37.5" cy="64.5" r="1.2" fill="white" opacity="0.7"/>
+      <circle cx="55.5" cy="64.5" r="1.2" fill="white" opacity="0.7"/>
+      <path d="M30,59 Q36,56 42,59" fill="none" stroke="#4a3828" stroke-width="2" stroke-linecap="round"/>
+      <path d="M48,59 Q54,56 60,59" fill="none" stroke="#4a3828" stroke-width="2" stroke-linecap="round"/>
+      <path d="M33,80 Q45,91 57,80" fill="none" stroke="#2a1f14" stroke-width="2.8" stroke-linecap="round"/>
+      <rect x="42" y="81" width="6" height="5" rx="1.5" fill="white"/>
+      <ellipse cx="35" cy="101" rx="10" ry="12" fill="#ede5d4"/>
+      <ellipse cx="55" cy="101" rx="10" ry="12" fill="#ede5d4"/>
+      <defs><radialGradient id="bG" cx="35%" cy="30%"><stop offset="0%" stop-color="white" stop-opacity="0.45"/><stop offset="100%" stop-color="#e0d8c4" stop-opacity="0"/></radialGradient></defs>
+    </svg>
+    <div class="momo-tooltip">Reserve a table!</div>
   </div>
-</section>
 
-<!-- ORDER -->
-
-<section class="section light">
-  <h2>Order Online</h2>
-
-  <div class="platforms">
-    <a href="https://zomato.onelink.me/xqzv/js3a85p9"><img src="zomato.png"></a>
-    <a href="https://www.swiggy.com/menu/1166577"><img src="swiggy.png"></a>
-  </div>
-</section>
-
-<!-- END SECTION -->
-
-<section class="end-section">
-
-  <div class="end-block">
-    <h3>Order Online</h3>
-    <p>Enjoy Himchi from your home.</p>
-  </div>
-
-  <div class="end-block">
-    <h3>Bulk Orders</h3>
-    <p>Perfect for events and parties.</p>
-  </div>
-
-  <div class="end-block">
-    <h3>We’d love to help you</h3>
-    <p>+91 70423 77168</p>
+  <!-- RESERVATION MODAL -->
+  <div id="modal" class="modal-overlay" onclick="handleOverlay(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-header">
+        <div class="modal-momo">🥟</div>
+        <h2>Reserve a Table</h2>
+        <p>We'll confirm via WhatsApp</p>
+      </div>
+      <div class="modal-inputs">
+        <div class="input-group"><label>Your Name</label><input id="name" type="text" placeholder="Rahul Sharma"></div>
+        <div class="input-row">
+          <div class="input-group"><label>Date</label><input id="date" type="date"></div>
+          <div class="input-group"><label>Time</label><input id="time" type="time"></div>
+        </div>
+        <div class="input-group"><label>Guests</label>
+          <select id="guests">
+            <option value="1">1 Person</option>
+            <option value="2" selected>2 People</option>
+            <option value="3">3 People</option>
+            <option value="4">4 People</option>
+            <option value="5+">5+ People</option>
+          </select>
+        </div>
+      </div>
+      <button class="reserve-btn full-btn" onclick="submitForm()">Confirm on WhatsApp 💬</button>
+    </div>
   </div>
 
-</section>
-
-<!-- MAP -->
-
-<section class="section">
-  <h2>Find Us</h2>
-
-  <div class="map">
-    <iframe src="https://maps.google.com/maps?q=Panchsheel%20Garden%20Delhi&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
-  </div>
-</section>
-
-<!-- CONTACT -->
-
-<section id="contact" class="section">
-  <h2>Visit Café</h2>
-
-  <p>📍 Panchsheel Garden, Shahdara, Delhi</p>
-
-  <div class="contact-btns">
-    <a href="tel:+917042377168">Call</a>
-    <a href="https://wa.me/917042377168">WhatsApp</a>
-  </div>
-</section>
-
-<!-- MOMO -->
-
-<div class="momo" id="momo">
-  <div class="eyes"></div>
-  <div class="mouth"></div>
-</div>
-
-<!-- MODAL -->
-
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span onclick="closeModal()">×</span>
-    <h2>Reserve Table</h2>
-    <input id="name" placeholder="Name">
-    <input id="date" type="date">
-    <input id="time" type="time">
-    <button onclick="submitForm()">Confirm</button>
-  </div>
-</div>
-
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
