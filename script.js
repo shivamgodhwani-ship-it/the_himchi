@@ -440,3 +440,41 @@ window.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('resize', () => {
   resizeCarousel();
 });
+/* --- Auto-Rotate Logic --- */
+let autoRotateInterval;
+
+function startAutoRotate() {
+  stopAutoRotate(); // Clear existing to avoid multiple intervals
+  autoRotateInterval = setInterval(() => {
+    const track = document.getElementById('carouselTrack');
+    const cards = track.querySelectorAll('.menu-card');
+    const cpv = getCardsPerView();
+    const maxIndex = Math.max(0, cards.length - cpv);
+
+    // If at the end, jump back to start, otherwise shift right
+    if (carouselIndex >= maxIndex) {
+      carouselIndex = 0;
+    } else {
+      carouselIndex++;
+    }
+    updateCarousel();
+  }, 3500); // 3.5 seconds per slide
+}
+
+function stopAutoRotate() {
+  clearInterval(autoRotateInterval);
+}
+
+// Update the init function to start rotation
+window.addEventListener('DOMContentLoaded', () => {
+  resizeCarousel();
+  initCarouselSwipe();
+  setMascotExpression('hero');
+  startAutoRotate(); // Start the rotation
+});
+
+// Pause rotation when user interacts
+const viewport = document.querySelector('.carousel-viewport');
+viewport.addEventListener('mouseenter', stopAutoRotate);
+viewport.addEventListener('mouseleave', startAutoRotate);
+viewport.addEventListener('touchstart', stopAutoRotate);
