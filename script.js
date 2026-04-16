@@ -12,13 +12,7 @@ const CARDS_PER_VIEW_BREAKPOINTS = [
   { maxWidth: 1024, count: 3 },
   { maxWidth: Infinity, count: 4 }
 ];
-// Set the interval (3000ms = 3 seconds)
-let slideInterval = setInterval(nextSlide, 3000);
 
-function nextSlide() {
-  // Replace this with the actual function/logic you use to move the slide
-  showSlide(currentIndex + 1);
-}
 function getCardsPerView() {
   const w = window.innerWidth;
   for (const bp of CARDS_PER_VIEW_BREAKPOINTS) {
