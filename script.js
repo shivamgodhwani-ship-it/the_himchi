@@ -2,31 +2,31 @@
    HIMCHI — script.js
    ============================================================ */
 
-/* ---- FEATURED DATA (with image filenames) ---- */
+/* ---- FEATURED DATA (no prices shown) ---- */
 const featuredData = {
   momos: [
-    { img:'momos.jpg', emoji:'🥟', name:'Tandoori Momos',   desc:'Smoky & char-grilled',   price:'₹149' },
-    { img:'',          emoji:'🥟', name:'Steamed Momos',    desc:'Soft & classic',          price:'₹109' },
-    { img:'',          emoji:'🥟', name:'Fried Momos',      desc:'Golden & crispy',         price:'₹129' },
-    { img:'',          emoji:'🥟', name:'Chilli Momos',     desc:'Fiery gravy toss',        price:'₹139' },
+    { img:'momos.jpg', emoji:'🥟', name:'Tandoori Momos',   desc:'Smoky & char-grilled'    },
+    { img:'',          emoji:'🥟', name:'Steamed Momos',    desc:'Soft & classic'           },
+    { img:'',          emoji:'🥟', name:'Fried Momos',      desc:'Golden & crispy'          },
+    { img:'',          emoji:'🥟', name:'Chilli Momos',     desc:'Fiery gravy toss'         },
   ],
   noodles: [
-    { img:'noodles.jpg',emoji:'🍜', name:'Garlic Noodles',   desc:'Wok-fired bold',         price:'₹129' },
-    { img:'',           emoji:'🍜', name:'Schezwan Noodles', desc:'Fiery & saucy',          price:'₹139' },
-    { img:'',           emoji:'🍜', name:'Hakka Noodles',    desc:'Street classic',         price:'₹119' },
-    { img:'',           emoji:'🍜', name:'Veg Chow Mein',    desc:'Loaded veggies',         price:'₹119' },
+    { img:'noodles.jpg',emoji:'🍜', name:'Garlic Noodles',   desc:'Wok-fired bold'          },
+    { img:'',           emoji:'🍜', name:'Schezwan Noodles', desc:'Fiery & saucy'           },
+    { img:'',           emoji:'🍜', name:'Hakka Noodles',    desc:'Street classic'          },
+    { img:'',           emoji:'🍜', name:'Veg Chow Mein',    desc:'Loaded veggies'          },
   ],
   shakes: [
-    { img:'shake.jpg', emoji:'🍫', name:'Chocolate Shake',  desc:'Thick & indulgent',      price:'₹119' },
-    { img:'',          emoji:'🍓', name:'Strawberry Shake', desc:'Fresh & fruity',         price:'₹109' },
-    { img:'',          emoji:'🥭', name:'Mango Shake',      desc:'Summer special',         price:'₹109' },
-    { img:'',          emoji:'🍌', name:'Banana Shake',     desc:'Creamy & smooth',        price:'₹99'  },
+    { img:'shake.jpg', emoji:'🍫', name:'Chocolate Shake',  desc:'Thick & indulgent'       },
+    { img:'',          emoji:'🍓', name:'Strawberry Shake', desc:'Fresh & fruity'           },
+    { img:'',          emoji:'🥭', name:'Mango Shake',      desc:'Summer special'           },
+    { img:'',          emoji:'🍌', name:'Banana Shake',     desc:'Creamy & smooth'          },
   ],
   beverages: [
-    { img:'drink.jpg', emoji:'🧋', name:'Iced Tea',         desc:'Refreshing & light',     price:'₹89'  },
-    { img:'',          emoji:'🍋', name:'Lemonade',         desc:'Tangy & cool',           price:'₹79'  },
-    { img:'',          emoji:'☕', name:'Cold Coffee',      desc:'Iced & strong',          price:'₹99'  },
-    { img:'',          emoji:'🥤', name:'Mojito',           desc:'Minty & fizzy',          price:'₹99'  },
+    { img:'drink.jpg', emoji:'🧋', name:'Iced Tea',         desc:'Refreshing & light'      },
+    { img:'',          emoji:'🍋', name:'Lemonade',         desc:'Tangy & cool'             },
+    { img:'',          emoji:'☕', name:'Cold Coffee',      desc:'Iced & strong'            },
+    { img:'',          emoji:'🥤', name:'Mojito',           desc:'Minty & fizzy'            },
   ]
 };
 
@@ -42,7 +42,7 @@ function renderFeaturedItems(cat) {
       const imgBlock = item.img
         ? `<div class="feat-card-img"><img src="${item.img}" alt="${item.name}" loading="lazy" onerror="this.parentElement.style.display='none';this.parentElement.nextElementSibling.style.display='flex'"></div><div class="feat-card-img-fb" style="display:none">${item.emoji}</div>`
         : `<div class="feat-card-img-fb">${item.emoji}</div>`;
-      return `<div class="feat-card">${imgBlock}<h4>${item.name}</h4><p>${item.desc}</p><p class="feat-price">${item.price}</p></div>`;
+      return `<div class="feat-card">${imgBlock}<h4>${item.name}</h4><p>${item.desc}</p></div>`;
     }).join('');
     container.classList.remove('fade');
   }, 220);
@@ -95,11 +95,14 @@ function toggleMenu() {
 document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    if (target) {
-      const menu = document.getElementById('navMenu');
-      if (menu.classList.contains('open')) toggleMenu();
-      setTimeout(() => target.scrollIntoView({ behavior:'smooth' }), menu.classList.contains('open') ? 320 : 0);
+    const href   = link.getAttribute('href');
+    const target = document.querySelector(href);
+    const menu   = document.getElementById('navMenu');
+    if (menu.classList.contains('open')) {
+      toggleMenu();
+      setTimeout(() => { if (target) target.scrollIntoView({ behavior:'smooth' }); }, 320);
+    } else {
+      if (target) target.scrollIntoView({ behavior:'smooth' });
     }
   });
 });
@@ -121,16 +124,15 @@ const revealObserver = new IntersectionObserver((entries) => {
     if (!entry.isIntersecting) return;
     const siblings = [...entry.target.parentElement.querySelectorAll('.reveal')];
     const idx = siblings.indexOf(entry.target);
-    setTimeout(() => entry.target.classList.add('visible'), idx * 110);
+    setTimeout(() => entry.target.classList.add('visible'), idx * 120);
     revealObserver.unobserve(entry.target);
   });
 }, { threshold: 0.1 });
-
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-/* ---- INTERSECTION OBSERVER: STATS COUNTER ---- */
-const statsBar = document.querySelector('.stats-bar');
+/* ---- STATS COUNTER ---- */
 let statsAnimated = false;
+const statsBar = document.querySelector('.stats-bar');
 if (statsBar) {
   new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting && !statsAnimated) {
@@ -139,47 +141,45 @@ if (statsBar) {
     }
   }, { threshold: 0.5 }).observe(statsBar);
 }
-
 function animateCounter(el) {
-  const target   = parseFloat(el.dataset.target);
-  const suffix   = el.dataset.suffix || '';
-  const decimal  = el.dataset.decimal === 'true';
+  const target  = parseFloat(el.dataset.target);
+  const suffix  = el.dataset.suffix || '';
+  const decimal = el.dataset.decimal === 'true';
   const duration = 1600;
   let start = null;
   function step(ts) {
     if (!start) start = ts;
-    const progress = Math.min((ts - start) / duration, 1);
-    const eased    = 1 - Math.pow(1 - progress, 3);
-    const value    = eased * target;
-    el.textContent = (decimal ? value.toFixed(1) : Math.floor(value).toLocaleString()) + suffix;
-    if (progress < 1) requestAnimationFrame(step);
+    const p = Math.min((ts - start) / duration, 1);
+    const v = (1 - Math.pow(1 - p, 3)) * target;
+    el.textContent = (decimal ? v.toFixed(1) : Math.floor(v).toLocaleString()) + suffix;
+    if (p < 1) requestAnimationFrame(step);
     else el.textContent = (decimal ? target.toFixed(1) : target.toLocaleString()) + suffix;
   }
   requestAnimationFrame(step);
 }
 
 /* ---- CHIBI MOMO MASCOT ---- */
-const mascot      = document.getElementById('mascot');
+const mascot       = document.getElementById('mascot');
 const speechBubble = document.getElementById('speechBubble');
-let wobbleTimer   = null;
-let lastScrollY   = window.scrollY;
-let bubbleTimer   = null;
-let isWobbling    = false;
+let lastScrollY    = window.scrollY;
+let wobbleTimer    = null;
+let isWobbling     = false;
+let bubbleTimer    = null;
+let bubbleIdx      = 0;
 
 const bubbleMessages = [
   'Welcome to Himchi! 🥟',
   'Reserve a table? 🗓️',
   'Best momos in town! 😋',
   'Satisfy Your Tongue! 🍜',
-  'Click to reserve! 🧡',
+  'You look hungry! 🧡',
+  'Come, eat, vibe! ✨',
 ];
-let bubbleIdx = 0;
 
-/* Scroll reaction — wobble */
+/* Scroll wobble */
 window.addEventListener('scroll', () => {
   const delta = Math.abs(window.scrollY - lastScrollY);
   lastScrollY = window.scrollY;
-
   if (delta > 8 && !isWobbling) {
     isWobbling = true;
     mascot.classList.add('wobble');
@@ -191,15 +191,13 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-/* Click — speech bubble */
+/* Click */
 mascot.addEventListener('click', () => {
-  // bounce animation
   mascot.classList.remove('clicked');
-  void mascot.offsetWidth; // reflow
+  void mascot.offsetWidth;
   mascot.classList.add('clicked');
   setTimeout(() => mascot.classList.remove('clicked'), 450);
 
-  // show speech bubble with rotating messages
   speechBubble.textContent = bubbleMessages[bubbleIdx % bubbleMessages.length];
   bubbleIdx++;
   speechBubble.classList.add('show');
@@ -212,8 +210,8 @@ function openModal() {
   const modal = document.getElementById('modal');
   modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  const dateInput = document.getElementById('date');
-  if (!dateInput.value) dateInput.min = new Date().toISOString().split('T')[0];
+  const d = document.getElementById('date');
+  if (!d.value) d.min = new Date().toISOString().split('T')[0];
 }
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
@@ -230,7 +228,6 @@ function submitForm() {
   const date   = document.getElementById('date').value;
   const time   = document.getElementById('time').value;
   const guests = document.getElementById('guests').value;
-
   let hasError = false;
   ['name','date','time'].forEach(id => {
     const el = document.getElementById(id);
@@ -244,22 +241,9 @@ function submitForm() {
     }
   });
   if (hasError) return;
-
-  const formattedDate = new Date(date).toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
-  const formattedTime = new Date(`2000-01-01T${time}`).toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
-
-  const msg = [
-    'Hello Himchi! 🥟',
-    '',
-    '🗓 New Table Reservation',
-    `👤 Name: ${name}`,
-    `📅 Date: ${formattedDate}`,
-    `⏰ Time: ${formattedTime}`,
-    `👥 Guests: ${guests}`,
-    '',
-    'Please confirm. Thank you!'
-  ].join('%0A');
-
+  const fd = new Date(date).toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
+  const ft = new Date(`2000-01-01T${time}`).toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+  const msg = ['Hello Himchi! 🥟','','🗓 New Reservation',`👤 Name: ${name}`,`📅 Date: ${fd}`,`⏰ Time: ${ft}`,`👥 Guests: ${guests}`,'','Please confirm. Thank you!'].join('%0A');
   window.open(`https://wa.me/917042377168?text=${msg}`, '_blank');
   closeModal();
 }
@@ -272,8 +256,6 @@ window.addEventListener('load', () => {
 /* ---- INIT ---- */
 renderFeaturedItems(currentCat);
 startAutoRotate();
-// fix tab onclicks to use onTabClick (so manual click resets auto-rotate timer)
 document.querySelectorAll('.tab-btn').forEach(btn => {
-  const cat = btn.getAttribute('data-cat');
-  btn.setAttribute('onclick', `onTabClick('${cat}',this)`);
+  btn.setAttribute('onclick', `onTabClick('${btn.dataset.cat}',this)`);
 });
