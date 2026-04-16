@@ -514,3 +514,20 @@ body.light .navbar.scrolled { background:rgba(248,243,236,.97); }
   .momo-svg { width:64px; }
   .carousel-arrow { display:none; }
 }
+/* Update the Responsive — Small Mobile section */
+@media (max-width: 540px) {
+  .carousel-track {
+    gap: 10px; /* Tighter gap for mobile */
+  }
+
+  .menu-card {
+    /* Force card to be readable */
+    width: calc(100vw - 40px) !important; 
+    min-width: calc(100vw - 40px) !important;
+    margin: 0 10px;
+  }
+  
+  .carousel-viewport {
+    padding: 10px 0;
+  }
+}
