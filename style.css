@@ -131,7 +131,7 @@ body.light .navbar.scrolled { background:rgba(248,243,236,.97); }
 
 /* ---- MUST TRY CAROUSEL ---- */
 .must-try-carousel { position:relative; display:flex; align-items:center; max-width:1100px; margin:40px auto 0; }
-.carousel-viewport { overflow:hidden; flex:1; border-radius: var(--radius); padding-bottom: 10px; }
+.carousel-viewport { overflow:hidden; flex:1; border-radius: var(--radius); }
 .carousel-track { display:flex; gap:20px; transition:transform .45s cubic-bezier(.25,.8,.25,1); will-change:transform; }
 .carousel-arrow { background:var(--card); border:1px solid var(--border); width:44px; height:44px; border-radius:50%; color:var(--text); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:background .2s, transform .15s; z-index:2; touch-action:manipulation; }
 .carousel-arrow.left { margin-right:14px; }
@@ -331,16 +331,15 @@ body.light .navbar.scrolled { background:rgba(248,243,236,.97); }
   .hero-btns { flex-direction:column; align-items:center; gap:12px; width: 100%; }
   .hero-btns .main-btn, .hero-btns .ghost-btn { width:100%; max-width:320px; text-align:center; padding: 16px; font-size: 16px; }
 
-  /* Premium Mobile Carousel Fix */
+  /* Premium Mobile Carousel Fix (No overriding widths here!) */
   .must-try-carousel { margin-top: 30px; }
-  .menu-card { width: calc(100vw - 32px) !important; min-width: calc(100vw - 32px) !important; margin: 0 16px; border-radius: 24px; }
-  .menu-img { height: 260px; } /* Ensures your local photos look massive and premium on mobile */
+  .menu-card { border-radius: 24px; }
+  .menu-img { height: 260px; } 
   .menu-info { padding: 24px; }
   .menu-info h3 { font-size: 20px; }
   .menu-info p { font-size: 15px; }
 
   .carousel-arrow { display: none; } /* Rely entirely on smooth swipe dots for mobile */
-  .carousel-viewport { padding-bottom: 0; }
   .carousel-dots { margin-top: 24px; }
 
   .stats-bar { grid-template-columns:1fr 1fr; padding:24px 16px; }
