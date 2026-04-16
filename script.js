@@ -71,6 +71,32 @@ function shiftCarousel(dir) {
   updateCarousel();
 }
 
+/* --- AUTO-ROTATE LOGIC --- */
+let autoRotateInterval;
+
+function startAutoRotate() {
+  if (autoRotateInterval) clearInterval(autoRotateInterval);
+  autoRotateInterval = setInterval(() => {
+    const track = document.getElementById('carouselTrack');
+    if (!track) return;
+    const cards = track.querySelectorAll('.menu-card');
+    const cpv = getCardsPerView();
+    const maxIndex = Math.max(0, cards.length - cpv);
+
+    // If at the end, jump back to start, otherwise shift right
+    if (carouselIndex >= maxIndex) {
+      carouselIndex = 0;
+    } else {
+      carouselIndex++;
+    }
+    updateCarousel();
+  }, 3500); // 3.5 seconds per slide
+}
+
+function stopAutoRotate() {
+  clearInterval(autoRotateInterval);
+}
+
 /* Set card widths based on viewport */
 function resizeCarousel() {
   const track = document.getElementById('carouselTrack');
@@ -226,7 +252,6 @@ const sectionExpressions = {
   },
   menu: {
     eyes: `
-      <!-- Hungry eyes — wide open -->
       <circle cx="38" cy="73" r="7" fill="#2a1f14"/>
       <circle cx="62" cy="73" r="7" fill="#2a1f14"/>
       <circle cx="40" cy="71" r="2.5" fill="white"/>
@@ -240,7 +265,6 @@ const sectionExpressions = {
   },
   about: {
     eyes: `
-      <!-- Warm crinkle eyes — squinting with joy -->
       <path d="M29,74 Q38,66 47,74" fill="none" stroke="#2a1f14" stroke-width="4" stroke-linecap="round"/>
       <path d="M53,74 Q62,66 71,74" fill="none" stroke="#2a1f14" stroke-width="4" stroke-linecap="round"/>
       <path d="M32,68 Q39,65 46,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
@@ -250,7 +274,6 @@ const sectionExpressions = {
   },
   experience: {
     eyes: `
-      <!-- Starry eyes — excited -->
       <text x="27" y="78" font-size="16" fill="#2a1f14">✨</text>
       <text x="50" y="78" font-size="16" fill="#2a1f14">✨</text>`,
     mouth: `<path d="M37,96 Q50,106 63,96" fill="none" stroke="#2a1f14" stroke-width="2.8" stroke-linecap="round"/>`,
@@ -258,7 +281,6 @@ const sectionExpressions = {
   },
   testimonials: {
     eyes: `
-      <!-- Proud eyes -->
       <circle cx="38" cy="73" r="6.5" fill="#2a1f14"/>
       <circle cx="62" cy="73" r="6.5" fill="#2a1f14"/>
       <circle cx="40" cy="71" r="2.2" fill="white"/>
@@ -270,7 +292,6 @@ const sectionExpressions = {
   },
   gallery: {
     eyes: `
-      <!-- Surprised eyes -->
       <circle cx="38" cy="73" r="8" fill="#2a1f14"/>
       <circle cx="62" cy="73" r="8" fill="#2a1f14"/>
       <circle cx="40.5" cy="70.5" r="3" fill="white"/>
@@ -282,7 +303,6 @@ const sectionExpressions = {
   },
   contact: {
     eyes: `
-      <!-- Heart eyes! -->
       <text x="26" y="80" font-size="15" fill="#f3703a">♥</text>
       <text x="50" y="80" font-size="15" fill="#f3703a">♥</text>
       <path d="M32,68 Q39,65 46,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
@@ -435,46 +455,23 @@ window.addEventListener('DOMContentLoaded', () => {
   resizeCarousel();
   initCarouselSwipe();
   setMascotExpression('hero');
+  
+  // Start the auto-rotate when the page loads!
+  startAutoRotate();
+  
+  // Add listeners to pause the rotation if the user interacts
+  const viewport = document.querySelector('.carousel-viewport');
+  if (viewport) {
+    viewport.addEventListener('mouseenter', stopAutoRotate);
+    viewport.addEventListener('mouseleave', startAutoRotate);
+    // Pause while touching/swiping, resume after a short delay
+    viewport.addEventListener('touchstart', stopAutoRotate, { passive: true });
+    viewport.addEventListener('touchend', () => {
+        setTimeout(startAutoRotate, 3000); 
+    }, { passive: true });
+  }
 });
 
 window.addEventListener('resize', () => {
   resizeCarousel();
 });
-/* --- Auto-Rotate Logic --- */
-let autoRotateInterval;
-
-function startAutoRotate() {
-  stopAutoRotate(); // Clear existing to avoid multiple intervals
-  autoRotateInterval = setInterval(() => {
-    const track = document.getElementById('carouselTrack');
-    const cards = track.querySelectorAll('.menu-card');
-    const cpv = getCardsPerView();
-    const maxIndex = Math.max(0, cards.length - cpv);
-
-    // If at the end, jump back to start, otherwise shift right
-    if (carouselIndex >= maxIndex) {
-      carouselIndex = 0;
-    } else {
-      carouselIndex++;
-    }
-    updateCarousel();
-  }, 3500); // 3.5 seconds per slide
-}
-
-function stopAutoRotate() {
-  clearInterval(autoRotateInterval);
-}
-
-// Update the init function to start rotation
-window.addEventListener('DOMContentLoaded', () => {
-  resizeCarousel();
-  initCarouselSwipe();
-  setMascotExpression('hero');
-  startAutoRotate(); // Start the rotation
-});
-
-// Pause rotation when user interacts
-const viewport = document.querySelector('.carousel-viewport');
-viewport.addEventListener('mouseenter', stopAutoRotate);
-viewport.addEventListener('mouseleave', startAutoRotate);
-viewport.addEventListener('touchstart', stopAutoRotate);
