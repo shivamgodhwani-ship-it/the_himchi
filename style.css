@@ -1,5 +1,5 @@
 /* ============================================================
-   HIMCHI — style.css  (Mobile-First Redesign)
+   HIMCHI — style.css 
    ============================================================ */
 
 /* ---- RESET + VARIABLES ---- */
@@ -35,6 +35,7 @@ body {
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
   transition: background .35s, color .35s;
+  padding-bottom: 70px; /* Added to ensure content isn't hidden behind the sticky order bar */
 }
 /* subtle grain */
 body::after {
@@ -161,6 +162,19 @@ body.light .navbar.scrolled { background:rgba(248,243,236,.97); }
   color:var(--muted); font-size:10px; letter-spacing:2px; text-transform:uppercase;
 }
 .scroll-line { width:1px; height:32px; background:linear-gradient(to bottom, var(--muted), transparent); }
+
+/* ---- OUR STORY ---- */
+.our-story-section {
+  padding: 80px 20px;
+  background: var(--bg2); /* Matches dark/light mode naturally */
+  text-align: center;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.story-container { max-width: 650px; margin: 0 auto; }
+.our-story-section h2 { font-size: clamp(24px,5vw,36px); color: var(--text); margin-bottom: 20px; font-family: 'Fraunces', serif; letter-spacing: -0.5px; }
+.our-story-section p { font-size: clamp(14px, 3.5vw, 16px); color: var(--muted); line-height: 1.8; margin-bottom: 15px; }
+.our-story-section p strong { color: var(--accent); font-weight: 600; }
 
 /* ---- SECTIONS ---- */
 .section { padding:80px 20px; text-align:center; background:var(--bg); }
@@ -344,15 +358,43 @@ body.light .navbar.scrolled { background:rgba(248,243,236,.97); }
 .footer-bottom { border-top:1px solid var(--border); padding:18px 0; text-align:center; }
 .footer-bottom p { font-size:12px; color:var(--muted); opacity:.6; }
 
+/* ---- STICKY ORDER BAR ---- */
+.sticky-order-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--accent);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  box-sizing: border-box;
+}
+.sticky-order-bar .order-text {
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.sticky-order-bar .order-links { display: flex; gap: 15px; align-items: center; }
+.sticky-order-bar .order-links img {
+  height: 32px; width: auto; border-radius: 6px; background-color: white; padding: 3px; transition: transform 0.2s ease;
+}
+.sticky-order-bar .order-links img:hover { transform: scale(1.1); }
+
+
 /* ---- CHIBI MOMO MASCOT ---- */
 .momo-mascot {
   position:fixed;
-  bottom:20px; right:16px;
+  bottom:80px; right:16px; /* Moved up to avoid sticky order bar */
   width:80px;
   z-index:400; cursor:pointer;
   animation:momoFloat 3.2s ease-in-out infinite;
   user-select:none;
-  /* Keep it inside the viewport on all screen sizes */
   max-width:calc(100vw - 32px);
 }
 @keyframes momoFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
@@ -362,7 +404,6 @@ body.light .navbar.scrolled { background:rgba(248,243,236,.97); }
 .momo-mascot:hover { animation-play-state:paused; }
 .momo-mascot.clicked .momo-svg { animation:clickBounce .45s cubic-bezier(.36,.07,.19,.97); }
 @keyframes clickBounce { 0%,100%{transform:scale(1);} 30%{transform:scale(1.18,.88);} 60%{transform:scale(.92,1.12);} 80%{transform:scale(1.05,.96);} }
-/* excited jump */
 .momo-mascot.excited { animation:momoExcited .6s cubic-bezier(.36,.07,.19,.97) 2; }
 @keyframes momoExcited { 0%,100%{transform:translateY(0) scale(1);} 40%{transform:translateY(-22px) scale(1.08,.94);} 70%{transform:translateY(4px) scale(.95,1.06);} }
 
@@ -474,6 +515,13 @@ body.light .navbar.scrolled { background:rgba(248,243,236,.97); }
   .hero-btns .main-btn,
   .hero-btns .ghost-btn { width:100%; max-width:280px; text-align:center; }
 
+  /* Carousel cards fix for mobile cramming */
+  .menu-card {
+    width: calc(100vw - 40px) !important; 
+    min-width: calc(100vw - 40px) !important;
+    margin: 0 10px;
+  }
+
   /* Carousel arrows — hide on very small, rely on swipe dots */
   .carousel-arrow { width:36px; height:36px; font-size:14px; }
   .carousel-arrow.left { margin-right:8px; }
@@ -499,8 +547,8 @@ body.light .navbar.scrolled { background:rgba(248,243,236,.97); }
   .modal-box { padding:24px 18px; }
   .input-row { grid-template-columns:1fr; }
 
-  /* Mascot stays at 72px, safely inside viewport */
-  .momo-mascot { width:72px; bottom:16px; right:12px; }
+  /* Mascot stays at 72px, moved up to avoid sticky bar */
+  .momo-mascot { width:72px; bottom:76px; right:12px; }
   .momo-svg { width:72px; }
   .speech-bubble { font-size:10px; max-width:150px; }
 }
@@ -510,24 +558,7 @@ body.light .navbar.scrolled { background:rgba(248,243,236,.97); }
    ================================================================ */
 @media (max-width:360px) {
   .hero-logo { width:160px; }
-  .momo-mascot { width:64px; right:10px; bottom:12px; }
+  .momo-mascot { width:64px; right:10px; bottom:72px; } /* Avoid sticky bar */
   .momo-svg { width:64px; }
   .carousel-arrow { display:none; }
-}
-/* Update the Responsive — Small Mobile section */
-@media (max-width: 540px) {
-  .carousel-track {
-    gap: 10px; /* Tighter gap for mobile */
-  }
-
-  .menu-card {
-    /* Force card to be readable */
-    width: calc(100vw - 40px) !important; 
-    min-width: calc(100vw - 40px) !important;
-    margin: 0 10px;
-  }
-  
-  .carousel-viewport {
-    padding: 10px 0;
-  }
 }
