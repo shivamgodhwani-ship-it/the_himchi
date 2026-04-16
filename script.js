@@ -7,7 +7,7 @@
    ================================================================ */
 let carouselIndex = 0;
 const CARDS_PER_VIEW_BREAKPOINTS = [
-  { maxWidth: 540,  count: 1 }, // Forced to 1 for mobile to highlight images
+  { maxWidth: 540,  count: 1 }, // Guarantees exactly 1 card shows on mobile
   { maxWidth: 820,  count: 2 },
   { maxWidth: 1100, count: 3 },
   { maxWidth: Infinity, count: 4 }
@@ -26,15 +26,7 @@ function getCardWidth() {
   if (!track) return 0;
   const card = track.querySelector('.menu-card');
   if (!card) return 0;
-  const style = window.getComputedStyle(card);
-  const marginLeft = parseFloat(style.marginLeft);
-  const marginRight = parseFloat(style.marginRight);
-  const gap = 20; 
-  
-  if(window.innerWidth <= 540) {
-     return card.offsetWidth + marginLeft + marginRight;
-  }
-  return card.offsetWidth + gap;
+  return card.offsetWidth + 20; // Exact card width + 20px gap
 }
 
 function updateCarousel(animate = true) {
@@ -104,7 +96,7 @@ function stopAutoRotate() {
   clearInterval(autoRotateInterval);
 }
 
-/* Set card widths based on viewport */
+/* Set exact card widths dynamically via JavaScript */
 function resizeCarousel() {
   const track = document.getElementById('carouselTrack');
   if (!track) return;
@@ -113,19 +105,15 @@ function resizeCarousel() {
   const cpv = getCardsPerView();
   const gap = 20;
   
-  if (window.innerWidth > 540) {
-    const cardW = Math.floor((vw - gap * (cpv - 1)) / cpv);
-    track.querySelectorAll('.menu-card').forEach(c => {
-      c.style.width = cardW + 'px';
-      c.style.minWidth = cardW + 'px';
-      c.style.margin = '0';
-    });
-  } else {
-      track.querySelectorAll('.menu-card').forEach(c => {
-        c.style.width = '';
-        c.style.minWidth = '';
-      });
-  }
+  // Mathematically forces the cards to perfectly fit the screen minus the gaps
+  const cardW = Math.floor((vw - gap * (cpv - 1)) / cpv);
+  
+  track.querySelectorAll('.menu-card').forEach(c => {
+    c.style.width = cardW + 'px';
+    c.style.minWidth = cardW + 'px';
+    c.style.margin = '0'; // Strips any buggy margins
+  });
+  
   updateCarousel(false);
 }
 
