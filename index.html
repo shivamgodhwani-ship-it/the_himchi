@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>Himchi – Satisfy Your Tongue</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
     <svg class="loader-momo" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg">
       <ellipse cx="50" cy="122" rx="24" ry="5" fill="rgba(0,0,0,0.15)"/>
       <ellipse cx="12" cy="80" rx="10" ry="15" fill="#ede5d4" transform="rotate(20,12,80)"/>
-      <g id="waveArmLoader"><ellipse cx="88" cy="72" rx="10" ry="15" fill="#ede5d4" transform="rotate(-30,88,72)"/><circle cx="90" cy="58" r="8" fill="#ede5d4"/></g>
+      <g><ellipse cx="88" cy="72" rx="10" ry="15" fill="#ede5d4" transform="rotate(-30,88,72)"/><circle cx="90" cy="58" r="8" fill="#ede5d4"/></g>
       <ellipse cx="50" cy="84" rx="36" ry="33" fill="#f5f0e8"/>
       <ellipse cx="50" cy="84" rx="36" ry="33" fill="url(#loaderGrad)"/>
       <ellipse cx="50" cy="53" rx="22" ry="12" fill="#eae2d0"/>
@@ -23,17 +23,8 @@
       <line x1="50" y1="47" x2="50" y2="57" stroke="#d4cbb8" stroke-width="1.5" stroke-linecap="round"/>
       <ellipse cx="28" cy="84" rx="11" ry="9" fill="#f4a090" opacity="0.4"/>
       <ellipse cx="72" cy="84" rx="11" ry="9" fill="#f4a090" opacity="0.4"/>
-      <!-- Saint/serene closed eyes -->
       <path d="M29,73 Q38,68 47,73" fill="none" stroke="#2a1f14" stroke-width="3.5" stroke-linecap="round"/>
       <path d="M53,73 Q62,68 71,73" fill="none" stroke="#2a1f14" stroke-width="3.5" stroke-linecap="round"/>
-      <!-- small eyelashes on closed eyes -->
-      <line x1="32" y1="72" x2="30" y2="69" stroke="#2a1f14" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="38" y1="70" x2="38" y2="67" stroke="#2a1f14" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="44" y1="72" x2="46" y2="69" stroke="#2a1f14" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="56" y1="72" x2="54" y2="69" stroke="#2a1f14" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="62" y1="70" x2="62" y2="67" stroke="#2a1f14" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="68" y1="72" x2="70" y2="69" stroke="#2a1f14" stroke-width="1.5" stroke-linecap="round"/>
-      <!-- Serene tiny smile (no tooth) -->
       <path d="M38,90 Q50,99 62,90" fill="none" stroke="#2a1f14" stroke-width="2.5" stroke-linecap="round"/>
       <ellipse cx="38" cy="114" rx="11" ry="13" fill="#ede5d4"/>
       <ellipse cx="62" cy="114" rx="11" ry="13" fill="#ede5d4"/>
@@ -49,7 +40,6 @@
       <div class="nav-logo">Himchi</div>
       <div class="nav-menu" id="navMenu">
         <a href="#menu" class="nav-link">Menu</a>
-        <a href="#sneak" class="nav-link">Featured</a>
         <a href="#about" class="nav-link">About</a>
         <a href="#experience" class="nav-link">Experience</a>
         <a href="#testimonials" class="nav-link">Reviews</a>
@@ -83,56 +73,47 @@
     <div class="hero-scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
   </section>
 
-  <!-- ① OUR RECOMMENDATIONS (was Bestsellers) — now first -->
+  <!-- MUST TRY — Carousel -->
   <section class="section dark-section" id="menu">
     <span class="section-tag">Our Recommendations</span>
     <h2>Must Try</h2>
-    <div class="menu-grid">
-      <div class="menu-card reveal">
-        <div class="menu-img"><img src="momos.jpg" alt="Tandoori Momos" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="menu-img-fb">🥟</div></div>
-        <div class="menu-badge bestseller">Bestseller</div>
-        <div class="menu-info"><h3>Tandoori Momos</h3><p>Smoky, spiced, char-grilled to perfection.</p><div class="menu-footer"><span class="menu-tag spicy">🌶 Spicy</span></div></div>
+    <div class="must-try-carousel">
+      <button class="carousel-arrow left" id="carouselLeft" onclick="shiftCarousel(-1)">&#8592;</button>
+      <div class="carousel-viewport">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="menu-card">
+            <div class="menu-img"><img src="momos.jpg" alt="Tandoori Momos" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="menu-img-fb">🥟</div></div>
+            <div class="menu-badge bestseller">Bestseller</div>
+            <div class="menu-info"><h3>Tandoori Momos</h3><p>Smoky, spiced, char-grilled to perfection.</p><div class="menu-footer"><span class="menu-tag spicy">🌶 Spicy</span></div></div>
+          </div>
+          <div class="menu-card">
+            <div class="menu-img"><img src="noodles.jpg" alt="Garlic Noodles" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="menu-img-fb">🍜</div></div>
+            <div class="menu-badge">Popular</div>
+            <div class="menu-info"><h3>Garlic Noodles</h3><p>Bold garlic toss, wok-fired with street magic.</p><div class="menu-footer"><span class="menu-tag veg">🌿 Veg</span></div></div>
+          </div>
+          <div class="menu-card">
+            <div class="menu-img"><img src="shake.jpg" alt="Chocolate Shake" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="menu-img-fb">🍫</div></div>
+            <div class="menu-badge bestseller">Bestseller</div>
+            <div class="menu-info"><h3>Chocolate Shake</h3><p>Thick, rich, dangerously indulgent.</p><div class="menu-footer"><span class="menu-tag sweet">🍫 Sweet</span></div></div>
+          </div>
+          <div class="menu-card">
+            <div class="menu-img"><img src="drink.jpg" alt="Iced Tea" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="menu-img-fb">🧋</div></div>
+            <div class="menu-info"><h3>Iced Tea</h3><p>Refreshing, light — the perfect companion.</p><div class="menu-footer"><span class="menu-tag cool">❄️ Cool</span></div></div>
+          </div>
+        </div>
       </div>
-      <div class="menu-card reveal">
-        <div class="menu-img"><img src="noodles.jpg" alt="Garlic Noodles" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="menu-img-fb">🍜</div></div>
-        <div class="menu-badge">Popular</div>
-        <div class="menu-info"><h3>Garlic Noodles</h3><p>Bold garlic toss, wok-fired with street magic.</p><div class="menu-footer"><span class="menu-tag veg">🌿 Veg</span></div></div>
-      </div>
-      <div class="menu-card reveal">
-        <div class="menu-img"><img src="shake.jpg" alt="Chocolate Shake" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="menu-img-fb">🍫</div></div>
-        <div class="menu-badge bestseller">Bestseller</div>
-        <div class="menu-info"><h3>Chocolate Shake</h3><p>Thick, rich, dangerously indulgent.</p><div class="menu-footer"><span class="menu-tag sweet">🍫 Sweet</span></div></div>
-      </div>
-      <div class="menu-card reveal">
-        <div class="menu-img"><img src="drink.jpg" alt="Iced Tea" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="menu-img-fb">🧋</div></div>
-        <div class="menu-info"><h3>Iced Tea</h3><p>Refreshing, light — the perfect companion.</p><div class="menu-footer"><span class="menu-tag cool">❄️ Cool</span></div></div>
-      </div>
+      <button class="carousel-arrow right" id="carouselRight" onclick="shiftCarousel(1)">&#8594;</button>
     </div>
+    <div class="carousel-dots" id="carouselDots"></div>
   </section>
 
   <!-- STATS -->
   <div class="stats-bar">
     <div class="stat-item"><span class="stat-num" data-target="1500" data-suffix="+">0+</span><span class="stat-label">Happy Customers</span></div>
-    <div class="stat-divider"></div>
     <div class="stat-item"><span class="stat-num" data-target="40" data-suffix="+">0+</span><span class="stat-label">Menu Items</span></div>
-    <div class="stat-divider"></div>
     <div class="stat-item"><span class="stat-num" data-target="4.1" data-suffix="★" data-decimal="true">0★</span><span class="stat-label">Avg Rating</span></div>
-    <div class="stat-divider"></div>
     <div class="stat-item"><span class="stat-num" data-target="1" data-suffix=" yr">0 yr</span><span class="stat-label">Of Good Vibes</span></div>
   </div>
-
-  <!-- ② SNEAK PEEK (was Our Recommendations / featured tabs) — now second -->
-  <section class="section" id="sneak">
-    <span class="section-tag">Sneak Peek of Our Menu</span>
-    <h2>What's Cooking</h2>
-    <div class="featured-tabs" id="featuredTabs">
-      <button class="tab-btn active" data-cat="momos"     onclick="onTabClick('momos',this)">Momos</button>
-      <button class="tab-btn"        data-cat="noodles"   onclick="onTabClick('noodles',this)">Noodles</button>
-      <button class="tab-btn"        data-cat="shakes"    onclick="onTabClick('shakes',this)">Shakes</button>
-      <button class="tab-btn"        data-cat="beverages" onclick="onTabClick('beverages',this)">Beverages</button>
-    </div>
-    <div class="featured-items" id="featuredItems"></div>
-  </section>
 
   <!-- ABOUT -->
   <section class="section dark-section" id="about">
@@ -146,7 +127,7 @@
     </div>
   </section>
 
-  <!-- ③ EXPERIENCE HIMCHI (dedicated video section) -->
+  <!-- EXPERIENCE -->
   <section class="experience-section" id="experience">
     <div class="experience-inner">
       <div class="experience-text reveal">
@@ -158,14 +139,18 @@
       <div class="experience-video-wrap reveal">
         <video
           class="experience-video"
+          id="himchiVideo"
           autoplay
           muted
           loop
           playsinline
-          controls
+          disablePictureInPicture
+          disableRemotePlayback
+          x-webkit-airplay="deny"
+          controlslist="nodownload nofullscreen noremoteplayback"
+          style="pointer-events:none"
         >
           <source src="hero-video.mp4" type="video/mp4">
-          <p style="color:var(--muted);padding:20px">Your browser doesn't support video.</p>
         </video>
       </div>
     </div>
@@ -188,15 +173,14 @@
     <h2>Moments At Himchi</h2>
     <div class="gallery-wrapper">
       <div class="gallery-track">
-        <div class="g-item"><img src="gp.1.jpeg" alt="Himchi moments" onerror="this.style.display='none'">📸</div>
-        <div class="g-item"><img src="gp.2.jpeg" alt="Himchi moments" onerror="this.style.display='none'">🥟</div>
-        <div class="g-item"><img src="gp.3.jpeg" alt="Himchi moments" onerror="this.style.display='none'">🍜</div>
-        <div class="g-item"><img src="gp.4.jpeg" alt="Himchi moments" onerror="this.style.display='none'">🍫</div>
-        <!-- duplicate for seamless loop -->
-        <div class="g-item"><img src="gp.1.jpeg" alt="Himchi moments" onerror="this.style.display='none'">📸</div>
-        <div class="g-item"><img src="gp.2.jpeg" alt="Himchi moments" onerror="this.style.display='none'">🥟</div>
-        <div class="g-item"><img src="gp.3.jpeg" alt="Himchi moments" onerror="this.style.display='none'">🍜</div>
-        <div class="g-item"><img src="gp.4.jpeg" alt="Himchi moments" onerror="this.style.display='none'">🍫</div>
+        <div class="g-item"><img src="gp.1.jpeg" alt="Himchi moments" onerror="this.style.display='none'"></div>
+        <div class="g-item"><img src="gp.2.jpeg" alt="Himchi moments" onerror="this.style.display='none'"></div>
+        <div class="g-item"><img src="gp.3.jpeg" alt="Himchi moments" onerror="this.style.display='none'"></div>
+        <div class="g-item"><img src="gp.4.jpeg" alt="Himchi moments" onerror="this.style.display='none'"></div>
+        <div class="g-item"><img src="gp.1.jpeg" alt="Himchi moments" onerror="this.style.display='none'"></div>
+        <div class="g-item"><img src="gp.2.jpeg" alt="Himchi moments" onerror="this.style.display='none'"></div>
+        <div class="g-item"><img src="gp.3.jpeg" alt="Himchi moments" onerror="this.style.display='none'"></div>
+        <div class="g-item"><img src="gp.4.jpeg" alt="Himchi moments" onerror="this.style.display='none'"></div>
       </div>
     </div>
   </section>
@@ -243,7 +227,6 @@
       <div class="footer-col">
         <h4>Explore</h4>
         <a href="#menu">Our Menu</a>
-        <a href="#sneak">What's Cooking</a>
         <a href="#about">About Us</a>
         <a href="#testimonials">Reviews</a>
       </div>
@@ -271,16 +254,15 @@
     </div>
   </footer>
 
-  <!-- CHIBI MOMO MASCOT (saint/serene — no tooth, closed peaceful eyes) -->
-  <div class="momo-mascot" id="mascot">
+  <!-- CHIBI MOMO MASCOT — no halo, smaller eyebrows, section-aware expressions -->
+  <div class="momo-mascot" id="mascot" onclick="mascotClick()">
     <div class="speech-bubble" id="speechBubble">Welcome to Himchi! 🥟</div>
     <div class="momo-flag-wrap">
       <div class="flag-pole"></div>
       <div class="momo-flag-tag">Himchi 🏮</div>
     </div>
+    <!-- Dynamic SVG — expression swapped via JS -->
     <svg class="momo-svg" id="momoSvg" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
-      <!-- Halo (saint vibes) -->
-      <ellipse cx="50" cy="30" rx="22" ry="5" fill="none" stroke="#ffd700" stroke-width="3" opacity="0.85"/>
       <!-- Shadow -->
       <ellipse cx="50" cy="127" rx="24" ry="5" fill="rgba(0,0,0,0.15)"/>
       <!-- Arms -->
@@ -302,21 +284,19 @@
       <!-- Blush cheeks -->
       <ellipse cx="28" cy="86" rx="11" ry="9" fill="#f4a090" opacity="0.38"/>
       <ellipse cx="72" cy="86" rx="11" ry="9" fill="#f4a090" opacity="0.38"/>
-      <!-- SAINT / SERENE EYES — long closed crescent with lashes -->
-      <!-- Left eye -->
-      <path d="M30,75 Q39,69 48,75" fill="none" stroke="#2a1f14" stroke-width="3.5" stroke-linecap="round"/>
-      <!-- Left lashes -->
-      <line x1="33" y1="74" x2="31" y2="70" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
-      <line x1="39" y1="71" x2="39" y2="67" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
-      <line x1="45" y1="74" x2="47" y2="70" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
-      <!-- Right eye -->
-      <path d="M52,75 Q61,69 70,75" fill="none" stroke="#2a1f14" stroke-width="3.5" stroke-linecap="round"/>
-      <!-- Right lashes -->
-      <line x1="55" y1="74" x2="53" y2="70" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
-      <line x1="61" y1="71" x2="61" y2="67" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
-      <line x1="67" y1="74" x2="69" y2="70" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
-      <!-- Serene gentle smile — NO tooth -->
-      <path d="M37,96 Q50,106 63,96" fill="none" stroke="#2a1f14" stroke-width="2.8" stroke-linecap="round"/>
+      <!-- Eyes — group swapped per section -->
+      <g id="eyeGroup">
+        <!-- default: serene closed -->
+        <path d="M30,75 Q39,69 48,75" fill="none" stroke="#2a1f14" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M52,75 Q61,69 70,75" fill="none" stroke="#2a1f14" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- small eyebrows -->
+        <path d="M32,68 Q39,65 46,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M54,68 Q61,65 68,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
+      </g>
+      <!-- Mouth group — swapped per section -->
+      <g id="mouthGroup">
+        <path d="M37,96 Q50,106 63,96" fill="none" stroke="#2a1f14" stroke-width="2.8" stroke-linecap="round"/>
+      </g>
       <!-- Legs -->
       <ellipse cx="38" cy="116" rx="11" ry="13" fill="#ede5d4"/>
       <ellipse cx="62" cy="116" rx="11" ry="13" fill="#ede5d4"/>
@@ -329,7 +309,7 @@
         </radialGradient>
       </defs>
     </svg>
-    <div class="momo-tooltip">Tap to reserve!</div>
+    <div class="momo-tooltip">Tap me!</div>
   </div>
 
   <!-- RESERVATION MODAL -->
