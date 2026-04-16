@@ -7,9 +7,9 @@
    ================================================================ */
 let carouselIndex = 0;
 const CARDS_PER_VIEW_BREAKPOINTS = [
-  { maxWidth: 480,  count: 1 },
-  { maxWidth: 768,  count: 2 },
-  { maxWidth: 1024, count: 3 },
+  { maxWidth: 540,  count: 1 }, // Forced to 1 for mobile to highlight images
+  { maxWidth: 820,  count: 2 },
+  { maxWidth: 1100, count: 3 },
   { maxWidth: Infinity, count: 4 }
 ];
 
@@ -26,7 +26,14 @@ function getCardWidth() {
   if (!track) return 0;
   const card = track.querySelector('.menu-card');
   if (!card) return 0;
-  const gap = 20;
+  const style = window.getComputedStyle(card);
+  const marginLeft = parseFloat(style.marginLeft);
+  const marginRight = parseFloat(style.marginRight);
+  const gap = 20; 
+  
+  if(window.innerWidth <= 540) {
+     return card.offsetWidth + marginLeft + marginRight;
+  }
   return card.offsetWidth + gap;
 }
 
@@ -53,7 +60,7 @@ function updateCarouselDots(maxIndex) {
       const dot = document.createElement('button');
       dot.className = 'carousel-dot' + (i === carouselIndex ? ' active' : '');
       dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-      dot.onclick = () => { carouselIndex = i; updateCarousel(); };
+      dot.onclick = () => { carouselIndex = i; updateCarousel(); startAutoRotate(); };
       dotsContainer.appendChild(dot);
     }
   } else {
@@ -69,6 +76,7 @@ function shiftCarousel(dir) {
   const maxIndex = Math.max(0, cards.length - cpv);
   carouselIndex = Math.max(0, Math.min(carouselIndex + dir, maxIndex));
   updateCarousel();
+  startAutoRotate(); // Reset timer if user clicked arrows
 }
 
 /* --- AUTO-ROTATE LOGIC --- */
@@ -83,14 +91,13 @@ function startAutoRotate() {
     const cpv = getCardsPerView();
     const maxIndex = Math.max(0, cards.length - cpv);
 
-    // If at the end, jump back to start, otherwise shift right
     if (carouselIndex >= maxIndex) {
       carouselIndex = 0;
     } else {
       carouselIndex++;
     }
     updateCarousel();
-  }, 3500); // 3.5 seconds per slide
+  }, 4000); // 4 seconds per slide
 }
 
 function stopAutoRotate() {
@@ -105,11 +112,20 @@ function resizeCarousel() {
   const vw = viewport.offsetWidth;
   const cpv = getCardsPerView();
   const gap = 20;
-  const cardW = Math.floor((vw - gap * (cpv - 1)) / cpv);
-  track.querySelectorAll('.menu-card').forEach(c => {
-    c.style.width = cardW + 'px';
-    c.style.minWidth = cardW + 'px';
-  });
+  
+  if (window.innerWidth > 540) {
+    const cardW = Math.floor((vw - gap * (cpv - 1)) / cpv);
+    track.querySelectorAll('.menu-card').forEach(c => {
+      c.style.width = cardW + 'px';
+      c.style.minWidth = cardW + 'px';
+      c.style.margin = '0';
+    });
+  } else {
+      track.querySelectorAll('.menu-card').forEach(c => {
+        c.style.width = '';
+        c.style.minWidth = '';
+      });
+  }
   updateCarousel(false);
 }
 
@@ -119,11 +135,15 @@ let touchEndX = 0;
 function initCarouselSwipe() {
   const viewport = document.querySelector('.carousel-viewport');
   if (!viewport) return;
-  viewport.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+  viewport.addEventListener('touchstart', e => { 
+      touchStartX = e.changedTouches[0].clientX; 
+      stopAutoRotate();
+  }, { passive: true });
   viewport.addEventListener('touchend', e => {
     touchEndX = e.changedTouches[0].clientX;
     const diff = touchStartX - touchEndX;
     if (Math.abs(diff) > 40) shiftCarousel(diff > 0 ? 1 : -1);
+    startAutoRotate(); // Resume rotation after swipe
   }, { passive: true });
 }
 
@@ -239,74 +259,39 @@ let bubbleTimer    = null;
 let bubbleIdx      = 0;
 let currentSection = '';
 
-/* Expression configs per section */
 const sectionExpressions = {
   hero: {
-    eyes: `
-      <path d="M30,75 Q39,69 48,75" fill="none" stroke="#2a1f14" stroke-width="3.5" stroke-linecap="round"/>
-      <path d="M52,75 Q61,69 70,75" fill="none" stroke="#2a1f14" stroke-width="3.5" stroke-linecap="round"/>
-      <path d="M32,68 Q39,65 46,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
-      <path d="M54,68 Q61,65 68,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>`,
+    eyes: `<path d="M30,75 Q39,69 48,75" fill="none" stroke="#2a1f14" stroke-width="3.5" stroke-linecap="round"/><path d="M52,75 Q61,69 70,75" fill="none" stroke="#2a1f14" stroke-width="3.5" stroke-linecap="round"/><path d="M32,68 Q39,65 46,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/><path d="M54,68 Q61,65 68,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>`,
     mouth: `<path d="M37,96 Q50,106 63,96" fill="none" stroke="#2a1f14" stroke-width="2.8" stroke-linecap="round"/>`,
     msg: 'Welcome to Himchi! 🥟'
   },
   menu: {
-    eyes: `
-      <circle cx="38" cy="73" r="7" fill="#2a1f14"/>
-      <circle cx="62" cy="73" r="7" fill="#2a1f14"/>
-      <circle cx="40" cy="71" r="2.5" fill="white"/>
-      <circle cx="64" cy="71" r="2.5" fill="white"/>
-      <path d="M32,66 Q39,63 46,66" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
-      <path d="M54,66 Q61,63 68,66" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>`,
-    mouth: `
-      <path d="M37,97 Q50,108 63,97" fill="#2a1f14" stroke="#2a1f14" stroke-width="2" stroke-linecap="round"/>
-      <path d="M38,97 Q50,104 62,97" fill="#e8c080" stroke="none"/>`,
+    eyes: `<circle cx="38" cy="73" r="7" fill="#2a1f14"/><circle cx="62" cy="73" r="7" fill="#2a1f14"/><circle cx="40" cy="71" r="2.5" fill="white"/><circle cx="64" cy="71" r="2.5" fill="white"/><path d="M32,66 Q39,63 46,66" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/><path d="M54,66 Q61,63 68,66" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>`,
+    mouth: `<path d="M37,97 Q50,108 63,97" fill="#2a1f14" stroke="#2a1f14" stroke-width="2" stroke-linecap="round"/><path d="M38,97 Q50,104 62,97" fill="#e8c080" stroke="none"/>`,
     msg: 'These momos are calling you! 😋'
   },
   about: {
-    eyes: `
-      <path d="M29,74 Q38,66 47,74" fill="none" stroke="#2a1f14" stroke-width="4" stroke-linecap="round"/>
-      <path d="M53,74 Q62,66 71,74" fill="none" stroke="#2a1f14" stroke-width="4" stroke-linecap="round"/>
-      <path d="M32,68 Q39,65 46,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
-      <path d="M54,68 Q61,65 68,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>`,
+    eyes: `<path d="M29,74 Q38,66 47,74" fill="none" stroke="#2a1f14" stroke-width="4" stroke-linecap="round"/><path d="M53,74 Q62,66 71,74" fill="none" stroke="#2a1f14" stroke-width="4" stroke-linecap="round"/><path d="M32,68 Q39,65 46,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/><path d="M54,68 Q61,65 68,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>`,
     mouth: `<path d="M36,95 Q50,107 64,95" fill="none" stroke="#2a1f14" stroke-width="3" stroke-linecap="round"/>`,
     msg: 'We make every bite count! 🏮'
   },
   experience: {
-    eyes: `
-      <text x="27" y="78" font-size="16" fill="#2a1f14">✨</text>
-      <text x="50" y="78" font-size="16" fill="#2a1f14">✨</text>`,
+    eyes: `<text x="27" y="78" font-size="16" fill="#2a1f14">✨</text><text x="50" y="78" font-size="16" fill="#2a1f14">✨</text>`,
     mouth: `<path d="M37,96 Q50,106 63,96" fill="none" stroke="#2a1f14" stroke-width="2.8" stroke-linecap="round"/>`,
     msg: 'The vibe is everything! ✨'
   },
   testimonials: {
-    eyes: `
-      <circle cx="38" cy="73" r="6.5" fill="#2a1f14"/>
-      <circle cx="62" cy="73" r="6.5" fill="#2a1f14"/>
-      <circle cx="40" cy="71" r="2.2" fill="white"/>
-      <circle cx="64" cy="71" r="2.2" fill="white"/>
-      <path d="M32,67 Q39,64 46,67" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
-      <path d="M54,67 Q61,64 68,67" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>`,
+    eyes: `<circle cx="38" cy="73" r="6.5" fill="#2a1f14"/><circle cx="62" cy="73" r="6.5" fill="#2a1f14"/><circle cx="40" cy="71" r="2.2" fill="white"/><circle cx="64" cy="71" r="2.2" fill="white"/><path d="M32,67 Q39,64 46,67" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/><path d="M54,67 Q61,64 68,67" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>`,
     mouth: `<path d="M37,96 Q50,106 63,96" fill="none" stroke="#2a1f14" stroke-width="2.8" stroke-linecap="round"/>`,
     msg: 'Our guests love us! ⭐'
   },
   gallery: {
-    eyes: `
-      <circle cx="38" cy="73" r="8" fill="#2a1f14"/>
-      <circle cx="62" cy="73" r="8" fill="#2a1f14"/>
-      <circle cx="40.5" cy="70.5" r="3" fill="white"/>
-      <circle cx="64.5" cy="70.5" r="3" fill="white"/>
-      <path d="M30,65 Q38,61 46,65" fill="none" stroke="#2a1f14" stroke-width="2" stroke-linecap="round"/>
-      <path d="M54,65 Q62,61 70,65" fill="none" stroke="#2a1f14" stroke-width="2" stroke-linecap="round"/>`,
+    eyes: `<circle cx="38" cy="73" r="8" fill="#2a1f14"/><circle cx="62" cy="73" r="8" fill="#2a1f14"/><circle cx="40.5" cy="70.5" r="3" fill="white"/><circle cx="64.5" cy="70.5" r="3" fill="white"/><path d="M30,65 Q38,61 46,65" fill="none" stroke="#2a1f14" stroke-width="2" stroke-linecap="round"/><path d="M54,65 Q62,61 70,65" fill="none" stroke="#2a1f14" stroke-width="2" stroke-linecap="round"/>`,
     mouth: `<ellipse cx="50" cy="99" rx="9" ry="6" fill="#2a1f14"/>`,
     msg: 'Wow, pretty moments! 📸'
   },
   contact: {
-    eyes: `
-      <text x="26" y="80" font-size="15" fill="#f3703a">♥</text>
-      <text x="50" y="80" font-size="15" fill="#f3703a">♥</text>
-      <path d="M32,68 Q39,65 46,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
-      <path d="M54,68 Q61,65 68,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>`,
+    eyes: `<text x="26" y="80" font-size="15" fill="#f3703a">♥</text><text x="50" y="80" font-size="15" fill="#f3703a">♥</text><path d="M32,68 Q39,65 46,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/><path d="M54,68 Q61,65 68,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>`,
     mouth: `<path d="M36,95 Q50,108 64,95" fill="none" stroke="#2a1f14" stroke-width="3.2" stroke-linecap="round"/>`,
     msg: 'Come visit us! We miss you 🧡'
   }
@@ -325,7 +310,6 @@ function updateMascotBySection(section) {
   currentSection = section;
   setMascotExpression(section);
 
-  // Show bubble with section message
   const expr = sectionExpressions[section];
   if (expr) {
     speechBubble.textContent = expr.msg;
@@ -335,7 +319,6 @@ function updateMascotBySection(section) {
   }
 }
 
-/* Scroll wobble */
 window.addEventListener('scroll', () => {
   const delta = Math.abs(window.scrollY - lastScrollY);
   lastScrollY = window.scrollY;
@@ -350,22 +333,13 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-/* Click messages */
-const clickMessages = [
-  'Satisfy Your Tongue! 🍜',
-  'Reserve a table? 🗓️',
-  'Best momos in town! 😋',
-  'Come, eat, vibe! ✨',
-  'You look hungry! 🧡',
-  'Open till 11 PM! 🌙',
-];
+const clickMessages = ['Satisfy Your Tongue! 🍜', 'Reserve a table? 🗓️', 'Best momos in town! 😋', 'Come, eat, vibe! ✨', 'You look hungry! 🧡', 'Open till 11 PM! 🌙'];
 
 function mascotClick() {
   mascot.classList.remove('clicked');
   void mascot.offsetWidth;
   mascot.classList.add('clicked');
   setTimeout(() => mascot.classList.remove('clicked'), 450);
-
   speechBubble.textContent = clickMessages[bubbleIdx % clickMessages.length];
   bubbleIdx++;
   speechBubble.classList.add('show');
@@ -373,18 +347,14 @@ function mascotClick() {
   bubbleTimer = setTimeout(() => speechBubble.classList.remove('show'), 2800);
 }
 
-/* Excited jump when modal opens */
 function mascotExcited() {
   mascot.classList.remove('excited');
   void mascot.offsetWidth;
   mascot.classList.add('excited');
   setTimeout(() => mascot.classList.remove('excited'), 1300);
-  // heart eyes
   const eyeGroup = document.getElementById('eyeGroup');
   if (eyeGroup) {
-    eyeGroup.innerHTML = `
-      <text x="26" y="80" font-size="15" fill="#f3703a">♥</text>
-      <text x="50" y="80" font-size="15" fill="#f3703a">♥</text>`;
+    eyeGroup.innerHTML = `<text x="26" y="80" font-size="15" fill="#f3703a">♥</text><text x="50" y="80" font-size="15" fill="#f3703a">♥</text>`;
     setTimeout(() => setMascotExpression(currentSection || 'hero'), 1500);
   }
   speechBubble.textContent = 'Yay! Let me set the table! 🥟';
@@ -413,9 +383,6 @@ function handleOverlay(e) {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-/* ================================================================
-   FORM SUBMIT
-   ================================================================ */
 function submitForm() {
   const name   = document.getElementById('name').value.trim();
   const date   = document.getElementById('date').value;
@@ -442,33 +409,22 @@ function submitForm() {
 }
 
 /* ================================================================
-   LOADER
+   INIT
    ================================================================ */
 window.addEventListener('load', () => {
   setTimeout(() => document.getElementById('loader').classList.add('hidden'), 850);
 });
 
-/* ================================================================
-   INIT
-   ================================================================ */
 window.addEventListener('DOMContentLoaded', () => {
   resizeCarousel();
   initCarouselSwipe();
   setMascotExpression('hero');
-  
-  // Start the auto-rotate when the page loads!
   startAutoRotate();
   
-  // Add listeners to pause the rotation if the user interacts
   const viewport = document.querySelector('.carousel-viewport');
   if (viewport) {
     viewport.addEventListener('mouseenter', stopAutoRotate);
     viewport.addEventListener('mouseleave', startAutoRotate);
-    // Pause while touching/swiping, resume after a short delay
-    viewport.addEventListener('touchstart', stopAutoRotate, { passive: true });
-    viewport.addEventListener('touchend', () => {
-        setTimeout(startAutoRotate, 3000); 
-    }, { passive: true });
   }
 });
 
