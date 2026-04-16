@@ -9,7 +9,6 @@
 </head>
 <body>
 
-  <!-- LOADER -->
   <div class="loader" id="loader">
     <svg class="loader-momo" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg">
       <ellipse cx="50" cy="122" rx="24" ry="5" fill="rgba(0,0,0,0.15)"/>
@@ -34,11 +33,11 @@
     <p class="loader-sub">Satisfy Your Tongue</p>
   </div>
 
-  <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <div class="nav-logo">Himchi</div>
       <div class="nav-menu" id="navMenu">
+        <a href="#story" class="nav-link">Our Story</a>
         <a href="#menu" class="nav-link">Menu</a>
         <a href="#about" class="nav-link">About</a>
         <a href="#experience" class="nav-link">Experience</a>
@@ -56,7 +55,6 @@
   </nav>
   <div class="menu-backdrop" id="menuBackdrop" onclick="toggleMenu()"></div>
 
-  <!-- HERO -->
   <section class="hero" id="hero">
     <div class="steam-wrap">
       <div class="steam s1"></div><div class="steam s2"></div><div class="steam s3"></div>
@@ -73,7 +71,14 @@
     <div class="hero-scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
   </section>
 
-  <!-- MUST TRY — Carousel -->
+  <section class="our-story-section" id="story">
+    <div class="story-container">
+      <h2>Our Story</h2>
+      <p>Welcome to <strong>The Himchi</strong>. What started as a shared love for bold, authentic flavors has grown into a space where every dish brings people together.</p>
+      <p>From our steaming, hand-folded tandoori momos and perfectly tossed noodles to our signature thick shakes, we believe in serving comfort food made with genuine care. Whether you're grabbing a quick bite or settling in with friends, you're not just a customer here—you're part of the Himchi family.</p>
+    </div>
+  </section>
+
   <section class="section dark-section" id="menu">
     <span class="section-tag">Our Recommendations</span>
     <h2>Must Try</h2>
@@ -107,7 +112,6 @@
     <div class="carousel-dots" id="carouselDots"></div>
   </section>
 
-  <!-- STATS -->
   <div class="stats-bar">
     <div class="stat-item"><span class="stat-num" data-target="1500" data-suffix="+">0+</span><span class="stat-label">Happy Customers</span></div>
     <div class="stat-item"><span class="stat-num" data-target="40" data-suffix="+">0+</span><span class="stat-label">Menu Items</span></div>
@@ -115,7 +119,6 @@
     <div class="stat-item"><span class="stat-num" data-target="1" data-suffix=" yr">0 yr</span><span class="stat-label">Of Good Vibes</span></div>
   </div>
 
-  <!-- ABOUT -->
   <section class="section dark-section" id="about">
     <span class="section-tag">Who We Are</span>
     <h2>About Himchi</h2>
@@ -127,7 +130,6 @@
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
   <section class="experience-section" id="experience">
     <div class="experience-inner">
       <div class="experience-text reveal">
@@ -156,7 +158,6 @@
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
   <section class="section dark-section" id="testimonials">
     <span class="section-tag">What People Say</span>
     <h2>Reviews</h2>
@@ -167,7 +168,6 @@
     </div>
   </section>
 
-  <!-- GALLERY -->
   <section class="section" id="gallery">
     <span class="section-tag">Gallery</span>
     <h2>Moments At Himchi</h2>
@@ -185,7 +185,6 @@
     </div>
   </section>
 
-  <!-- VISIT -->
   <section class="section dark-section" id="contact">
     <span class="section-tag">Find Us</span>
     <h2>Visit Himchi</h2>
@@ -221,7 +220,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-col">
@@ -254,50 +252,38 @@
     </div>
   </footer>
 
-  <!-- CHIBI MOMO MASCOT — no halo, smaller eyebrows, section-aware expressions -->
   <div class="momo-mascot" id="mascot" onclick="mascotClick()">
     <div class="speech-bubble" id="speechBubble">Welcome to Himchi! 🥟</div>
     <div class="momo-flag-wrap">
       <div class="flag-pole"></div>
       <div class="momo-flag-tag">Himchi 🏮</div>
     </div>
-    <!-- Dynamic SVG — expression swapped via JS -->
     <svg class="momo-svg" id="momoSvg" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
-      <!-- Shadow -->
       <ellipse cx="50" cy="127" rx="24" ry="5" fill="rgba(0,0,0,0.15)"/>
-      <!-- Arms -->
       <ellipse cx="12" cy="82" rx="10" ry="15" fill="#ede5d4" transform="rotate(20,12,82)"/>
       <g id="waveArm">
         <ellipse cx="88" cy="74" rx="10" ry="15" fill="#ede5d4" transform="rotate(-30,88,74)"/>
         <circle cx="90" cy="60" r="8" fill="#ede5d4"/>
       </g>
-      <!-- Body -->
       <ellipse cx="50" cy="86" rx="36" ry="33" fill="#f5f0e8"/>
       <ellipse cx="50" cy="86" rx="36" ry="33" fill="url(#bG)"/>
-      <!-- Pleated top fold -->
       <ellipse cx="50" cy="55" rx="22" ry="12" fill="#eae2d0"/>
       <path d="M30,59 Q40,50 50,49 Q60,50 70,59" fill="none" stroke="#d4cbb8" stroke-width="2.5" stroke-linecap="round"/>
       <path d="M36,59 Q43,54 50,53 Q57,54 64,59" fill="none" stroke="#c8bfaa" stroke-width="1.5" stroke-linecap="round"/>
       <line x1="50" y1="49" x2="50" y2="59" stroke="#d4cbb8" stroke-width="1.5" stroke-linecap="round"/>
       <line x1="41" y1="51" x2="40" y2="59" stroke="#d4cbb8" stroke-width="1.2" stroke-linecap="round"/>
       <line x1="59" y1="51" x2="60" y2="59" stroke="#d4cbb8" stroke-width="1.2" stroke-linecap="round"/>
-      <!-- Blush cheeks -->
       <ellipse cx="28" cy="86" rx="11" ry="9" fill="#f4a090" opacity="0.38"/>
       <ellipse cx="72" cy="86" rx="11" ry="9" fill="#f4a090" opacity="0.38"/>
-      <!-- Eyes — group swapped per section -->
       <g id="eyeGroup">
-        <!-- default: serene closed -->
         <path d="M30,75 Q39,69 48,75" fill="none" stroke="#2a1f14" stroke-width="3.5" stroke-linecap="round"/>
         <path d="M52,75 Q61,69 70,75" fill="none" stroke="#2a1f14" stroke-width="3.5" stroke-linecap="round"/>
-        <!-- small eyebrows -->
         <path d="M32,68 Q39,65 46,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
         <path d="M54,68 Q61,65 68,68" fill="none" stroke="#2a1f14" stroke-width="1.8" stroke-linecap="round"/>
       </g>
-      <!-- Mouth group — swapped per section -->
       <g id="mouthGroup">
         <path d="M37,96 Q50,106 63,96" fill="none" stroke="#2a1f14" stroke-width="2.8" stroke-linecap="round"/>
       </g>
-      <!-- Legs -->
       <ellipse cx="38" cy="116" rx="11" ry="13" fill="#ede5d4"/>
       <ellipse cx="62" cy="116" rx="11" ry="13" fill="#ede5d4"/>
       <ellipse cx="33" cy="126" rx="7" ry="4" fill="#e8dfc8"/>
@@ -312,7 +298,6 @@
     <div class="momo-tooltip">Tap me!</div>
   </div>
 
-  <!-- RESERVATION MODAL -->
   <div id="modal" class="modal-overlay" onclick="handleOverlay(event)">
     <div class="modal-box">
       <button class="modal-close" onclick="closeModal()">✕</button>
@@ -339,6 +324,15 @@
         </div>
       </div>
       <button class="reserve-btn full-btn" onclick="submitForm()">Confirm on WhatsApp 💬</button>
+    </div>
+  </div>
+
+  <div class="sticky-order-bar">
+    <div class="order-text">Order Now</div>
+    <div class="order-links">
+      <a href="https://zomato.onelink.me/xqzv/js3a85p9" target="_blank"><img src="zomato.png" alt="Zomato"></a>
+      <a href="https://www.swiggy.com/menu/1166577" target="_blank"><img src="swiggy.png" alt="Swiggy"></a>
+      <a href="https://wa.me/917042377168" target="_blank"><img src="whatsapp.png" alt="WhatsApp"></a>
     </div>
   </div>
 
