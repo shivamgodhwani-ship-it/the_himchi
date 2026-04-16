@@ -358,39 +358,11 @@ body.light .navbar.scrolled { background:rgba(248,243,236,.97); }
 .footer-bottom { border-top:1px solid var(--border); padding:18px 0; text-align:center; }
 .footer-bottom p { font-size:12px; color:var(--muted); opacity:.6; }
 
-/* ---- STICKY ORDER BAR ---- */
-.sticky-order-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: var(--accent);
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 20px;
-  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  box-sizing: border-box;
-}
-.sticky-order-bar .order-text {
-  font-size: 1.2rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.sticky-order-bar .order-links { display: flex; gap: 15px; align-items: center; }
-.sticky-order-bar .order-links img {
-  height: 32px; width: auto; border-radius: 6px; background-color: white; padding: 3px; transition: transform 0.2s ease;
-}
-.sticky-order-bar .order-links img:hover { transform: scale(1.1); }
-
 
 /* ---- CHIBI MOMO MASCOT ---- */
 .momo-mascot {
   position:fixed;
-  bottom:80px; right:16px; /* Moved up to avoid sticky order bar */
+  bottom:20px; right:16px; /* Moved up to avoid sticky order bar */
   width:80px;
   z-index:400; cursor:pointer;
   animation:momoFloat 3.2s ease-in-out infinite;
